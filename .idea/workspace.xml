@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cb18414b-27ee-45b2-ba5e-991f25d3fe29" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="2XHbCQMeryzdCq9Cexc1NavZY57" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/common/src/test/resources" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\张华川\Desktop\myRpc\common\src\test\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\张华川\Desktop\myRpc\producer\src\main\java" />
+      <recent name="C:\Users\张华川\Desktop\myRpc\producer\src\main" />
+      <recent name="C:\Users\张华川\Desktop\myRpc\consumer\src\main" />
+      <recent name="C:\Users\张华川\Desktop\myRpc\common\src\main\java" />
+      <recent name="C:\Users\张华川\Desktop\myRpc\common\src\main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.huachuan.protocal.Netty.server" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.ClientTest.client">
+    <configuration name="ClientTest.client" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huachuan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.huachuan" />
+      <option name="MAIN_CLASS_NAME" value="com.huachuan.ClientTest" />
+      <option name="METHOD_NAME" value="client" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerTest.server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huachuan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.huachuan" />
+      <option name="MAIN_CLASS_NAME" value="com.huachuan.ServerTest" />
+      <option name="METHOD_NAME" value="server" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="zookeeperTest.registerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huachuan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.huachuan" />
+      <option name="MAIN_CLASS_NAME" value="com.huachuan.zookeeperTest" />
+      <option name="METHOD_NAME" value="registerTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="zookeeperTest.subscribeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huachuan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.huachuan" />
+      <option name="MAIN_CLASS_NAME" value="com.huachuan.zookeeperTest" />
+      <option name="METHOD_NAME" value="subscribeTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="zookeeperTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huachuan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.huachuan" />
+      <option name="MAIN_CLASS_NAME" value="com.huachuan.zookeeperTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ClientTest.client" />
+        <item itemvalue="JUnit.ServerTest.server" />
+        <item itemvalue="JUnit.zookeeperTest.subscribeTest" />
+        <item itemvalue="JUnit.zookeeperTest.registerTest" />
+        <item itemvalue="JUnit.zookeeperTest.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb18414b-27ee-45b2-ba5e-991f25d3fe29" name="Changes" comment="" />
+      <created>1698288830696</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698288830696</updated>
+      <workItem from="1698288832033" duration="4059000" />
+      <workItem from="1698305152126" duration="10942000" />
+      <workItem from="1698372728182" duration="22994000" />
+      <workItem from="1698631299579" duration="25904000" />
+      <workItem from="1698672420835" duration="1128000" />
+      <workItem from="1698716899377" duration="16213000" />
+      <workItem from="1698922486839" duration="2928000" />
+      <workItem from="1699321209940" duration="12280000" />
+      <workItem from="1699528756220" duration="3265000" />
+      <workItem from="1699603084140" duration="10000" />
+      <workItem from="1699611808463" duration="6564000" />
+      <workItem from="1700545354475" duration="3431000" />
+      <workItem from="1700551646037" duration="17000" />
+      <workItem from="1701764299326" duration="11771000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/common/src/test/java/com/huachuan/zookeeperTest.java</url>
+          <line>22</line>
+          <properties class="com.huachuan.zookeeperTest" method="test">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/common/src/test/java/com/huachuan/zookeeperTest.java</url>
+          <line>107</line>
+          <properties class="com.huachuan.zookeeperTest" method="registerTest">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/common/src/main/java/com/huachuan/protocal/Netty/client/ClientHandler.java</url>
+          <line>45</line>
+          <properties class="com.huachuan.protocal.Netty.client.ClientHandler">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/common/src/main/java/com/huachuan/protocal/Netty/client/NettyClientImpl.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
