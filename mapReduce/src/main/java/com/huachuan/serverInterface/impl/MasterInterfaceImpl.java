@@ -71,12 +71,14 @@ public class MasterInterfaceImpl implements MasterInterface {
         return workers.size() - avaliableWorkers.size();
     }
 
-    public synchronized int register(String address) {
+    public  int register(String address) {
         if (workerMap.containsKey(address)) return 0;
         workerMap.put(address, new RpcClient(address));
+        lock.lock();
         avaliableWorkers.add(address);
+        empty.signalAll();
+        lock.unlock();
         workers.add(address);
-        this.notifyAll();
         return 1;
     }
 
@@ -85,17 +87,19 @@ public class MasterInterfaceImpl implements MasterInterface {
         return avaliableWorkers.size();
     }
 
-    public synchronized void taskDistribution(String type){
+    public  void taskDistribution(String type){
         String url = "";
+        lock.lock();
       try {
         while (avaliableWorkers.size() <= 0) {
-          this.wait();
+          empty.await();
         }
 
         if (type.equals("map")) decrementMapTaskCount();
         else decrementReduceTaskCount();
         url = avaliableWorkers.get(avaliableWorkers.size() - 1);
         avaliableWorkers.remove(avaliableWorkers.size() - 1);
+        lock.unlock();
         workerMap.get(url).request(WorkerInterface.class, "WorkerInterfaceImpl", "handleTask", type);
         } catch (Exception e) { //远程worker处理失败， 任务需要重新被执行
             System.out.println("worker任务处理失败");

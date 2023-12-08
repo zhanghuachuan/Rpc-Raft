@@ -6,22 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="cb18414b-27ee-45b2-ba5e-991f25d3fe29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/huachuan/consumer/ClientPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/huachuan/consumer/ClientPool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/client/NettyClientImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/client/NettyClientImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/server/LocalRegister.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/server/LocalRegister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/server/NettyServerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/server/NettyServerImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/server/ServerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/huachuan/protocal/Netty/server/ServerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/huachuan/provider/ServerPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/huachuan/provider/ServerPool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/test-classes/com/huachuan/zookeeperTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/test-classes/com/huachuan/zookeeperTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/master/Master.java" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/master/Master.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/serverInterface/MasterInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/serverInterface/MasterInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/serverInterface/impl/MasterInterfaceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/serverInterface/impl/MasterInterfaceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/serverInterface/impl/WorkerInterfaceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/src/main/java/com/huachuan/serverInterface/impl/WorkerInterfaceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapReduce/src/test/com/huachuan/WorkerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/src/test/com/huachuan/WorkerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/master/Master$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/master/Master$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/master/Master.class" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/master/Master.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/serverInterface/impl/MasterInterfaceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/serverInterface/impl/MasterInterfaceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/serverInterface/impl/WorkerInterfaceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/mapReduce/target/classes/com/huachuan/serverInterface/impl/WorkerInterfaceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +74,7 @@
       <recent name="com.huachuan.protocal.Netty.server" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WorkerTest.worker2">
+  <component name="RunManager" selected="JUnit.WorkerTest.worker3">
     <configuration name="MasterTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mapReduce" />
       <extension name="coverage">
@@ -169,10 +157,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WorkerTest.worker3" />
+        <item itemvalue="JUnit.WorkerTest.worker2" />
         <item itemvalue="JUnit.WorkerTest.worker1" />
         <item itemvalue="JUnit.MasterTest.test" />
-        <item itemvalue="JUnit.WorkerTest.worker2" />
-        <item itemvalue="JUnit.WorkerTest.worker3" />
         <item itemvalue="JUnit.WorkerTest.worker" />
       </list>
     </recent_temporary>
@@ -206,7 +194,7 @@
       <workItem from="1701946513985" duration="585000" />
       <workItem from="1701947241612" duration="4716000" />
       <workItem from="1702004664307" duration="435000" />
-      <workItem from="1702005133506" duration="18044000" />
+      <workItem from="1702005133506" duration="19665000" />
     </task>
     <servers />
   </component>

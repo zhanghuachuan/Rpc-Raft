@@ -17,14 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class Master {
     ThreadPoolExecutor threadPoolExecutor;
 
-    private MasterInterface master = new MasterInterfaceImpl(100000, 50000);
+    private MasterInterface master = new MasterInterfaceImpl(100, 100);
     private RpcServer rpcServer;
 
     public void start() throws Exception {
         rpcServer = new RpcServer("127.0.0.1:8083");
         rpcServer.register(MasterInterfaceImpl.class, master, "register");
        threadPoolExecutor = new ThreadPoolExecutor(
-                2,//核心线程池大小
+                3,//核心线程池大小 最好与worker服务个数保持一致
                 5,//获取CPU核数 System.out.println(Runtime.getRuntime().availableProcessors());
                 3,//超时时间，没人调用时就会释放
                 TimeUnit.SECONDS,
