@@ -13,8 +13,7 @@ public class ServerPool {
     public synchronized static RpcServer get(String address) {
         if(!map.containsKey(address)) {
             System.out.println("开启服务端" + address);
-            String[] component = address.split(":");
-            map.put(address, new RpcServer(component[0], Integer.valueOf(component[1])));
+            map.put(address, new RpcServer(address));
         }
         return map.get(address);
     }

@@ -15,5 +15,6 @@ com/huachuan/consumer/ClientPool.class
 com/huachuan/protocal/Netty/client/ZookeeperSubscribeImpl$1.class
 com/huachuan/protocal/Netty/server/ZookeeperRegisterImpl.class
 com/huachuan/consumer/BeanProxy.class
+com/huachuan/consumer/RpcClient.class
 com/huachuan/entity/Url.class
 com/huachuan/protocal/Netty/client/NettyClientImpl.class

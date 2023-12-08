@@ -11,6 +11,7 @@ import java.util.List;
 
 public class BeanProxy {
     /**
+     * 采用zookeeper作为注册中心自动获取远程服务地址
      * @param serivceClass 需要代理的接口
      * @param className    需要调用远端服务的实现类的类名
      * @return

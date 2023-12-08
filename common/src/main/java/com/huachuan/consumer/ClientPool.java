@@ -13,7 +13,7 @@ public class ClientPool {
         if(!map.containsKey(address)) {
             System.out.println("创建客户端，连接：" + address);
             String[] component = address.split(":");
-            new NettyClientImpl(component[0], Integer.valueOf(component[1]));
+            map.put(address, new NettyClientImpl(component[0], Integer.valueOf(component[1])));
         }
         return map.get(address);
     }

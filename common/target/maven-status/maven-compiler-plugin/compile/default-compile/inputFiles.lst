@@ -1,5 +1,6 @@
 /Users/huachuan/Desktop/project/myRpc/common/src/main/java/com/huachuan/messages/Message.java
 /Users/huachuan/Desktop/project/myRpc/common/src/main/java/com/huachuan/protocal/Netty/server/ServerHandler.java
+/Users/huachuan/Desktop/project/myRpc/common/src/main/java/com/huachuan/consumer/RpcClient.java
 /Users/huachuan/Desktop/project/myRpc/common/src/main/java/com/huachuan/messages/impl/Echo.java
 /Users/huachuan/Desktop/project/myRpc/common/src/main/java/com/huachuan/provider/ServerPool.java
 /Users/huachuan/Desktop/project/myRpc/common/src/main/java/com/huachuan/protocal/Netty/server/ZookeeperRegisterImpl.java

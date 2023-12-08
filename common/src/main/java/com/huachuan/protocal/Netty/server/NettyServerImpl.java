@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class NettyServerImpl {
    private EventLoopGroup bossGroup;
@@ -31,14 +32,14 @@ public class NettyServerImpl {
                         //给pipeline 设置处理器
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new ObjectDecoder(1024*1024, ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())))
+                            ch.pipeline()
+                                    .addLast(new ObjectDecoder(1024*1024, ClassResolvers.weakCachingConcurrentResolver(this.getClass().getClassLoader())))
                                     .addLast(new ObjectEncoder())
                                     .addLast(new ServerHandler(localRegister));
                         }
                     }); // 给我们的workerGroup 的 EventLoop 对应的管道设置处理器
 
             System.out.println(".....服务器 is ready...");
-
             //绑定一个端口并且同步, 生成了一个 ChannelFuture 对象
             //启动服务器(并绑定端口)
             ChannelFuture cf = bootstrap.bind(port).sync();

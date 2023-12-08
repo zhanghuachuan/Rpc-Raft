@@ -22,7 +22,6 @@ public class NettyClientImpl {
 
    public NettyClientImpl(String address, int port){
         initClient(address, port);
-        ClientPool.add(address +":"+ port, this);
     }
 
     public void initClient(String address, int port) {
