@@ -1,13 +1,11 @@
 package com.huachuan.serverInterface;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public interface MasterInterface {
     //获取maptask任务的个数
-    AtomicInteger getMapTask();
+    int getMapTask();
 
     //获取reduceTask的个数
-    AtomicInteger getReduceTask();
+    int getReduceTask();
 
 
     //获取正在被处理的任务个数

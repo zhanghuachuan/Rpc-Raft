@@ -28,6 +28,11 @@ public class WorkerInterfaceImpl implements WorkerInterface {
         } else {
             System.out.println("reduce被调用");
         }
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return 1;
     }
 

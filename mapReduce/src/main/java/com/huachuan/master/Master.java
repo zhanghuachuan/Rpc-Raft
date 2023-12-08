@@ -15,22 +15,23 @@ import java.util.concurrent.TimeUnit;
  * Master是负责协调任务分发的server服务，提供了对任务的管理和分发
  */
 public class Master {
-    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
-            2,//核心线程池大小
-            5,//获取CPU核数 System.out.println(Runtime.getRuntime().availableProcessors());
-            3,//超时时间，没人调用时就会释放
-            TimeUnit.SECONDS,
-            new LinkedBlockingQueue<>(3),
-            Executors.defaultThreadFactory(),
-            new ThreadPoolExecutor.AbortPolicy()
-    );
+    ThreadPoolExecutor threadPoolExecutor;
 
-    private MasterInterface master = new MasterInterfaceImpl(20, 10);
+    private MasterInterface master = new MasterInterfaceImpl(100000, 50000);
     private RpcServer rpcServer;
 
     public void start() throws Exception {
         rpcServer = new RpcServer("127.0.0.1:8083");
         rpcServer.register(MasterInterfaceImpl.class, master, "register");
+       threadPoolExecutor = new ThreadPoolExecutor(
+                2,//核心线程池大小
+                5,//获取CPU核数 System.out.println(Runtime.getRuntime().availableProcessors());
+                3,//超时时间，没人调用时就会释放
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(master.getMapTask() + master.getReduceTask()) ,
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy()
+        );
         rpcServer.start();
         //开始心跳检测
         new Thread(new Runnable() {
@@ -42,30 +43,35 @@ public class Master {
                     e.printStackTrace();
                 }
             }
-        });
+        }).start();
 
         //分发任务
-        while (master.getMapTask().get() > 0 || master.getReduceTask().get() > 0 || master.getOnBusy() != 0) {
-            System.out.println("当前map任务数：" + master.getMapTask().get());
-            System.out.println("当前reduce任务数：" + master.getReduceTask().get());
-            if (master.getWorkerServerCount() <= 0) {
-                System.out.println("没有worker服务可用，等待中！！！");
-                Thread.sleep(5*1000);
-                continue;
+        while (master.getMapTask() > 0 || master.getReduceTask() > 0 || master.getOnBusy() != 0) {
+            if (master.getMapTask() > 0) {
+                System.out.println("启动线程分发map任务");
+                for (int i = 0; i < master.getMapTask(); ++i) {
+                    threadPoolExecutor.execute(()->{master.taskDistribution("map");});
+                }
+            } else  {
+                if (master.getReduceTask() > 0) {
+                    System.out.println("启动线程分发reduce任务");
+                    for (int i = 0; i < master.getReduceTask(); ++i) {
+                        threadPoolExecutor.execute(()->{master.taskDistribution("reduce");});
+                    }
+                }
             }
-            if (master.getMapTask().get() > 0) {
-                System.out.println("分发map任务");
-                threadPoolExecutor.execute(()->{master.taskDistribution("map");});
-                continue;
-            }
-            if (master.getReduceTask().get() > 0) {
-                System.out.println("分发reduce任务");
-                threadPoolExecutor.execute(()->{master.taskDistribution("reduce");});
-                continue;
-            }
-            System.out.println("map和reduce任务均已为0，等待所有忙碌worker结束");
-            Thread.sleep(4*1000);
+
+
+            //等待线程池任务执行完毕
+           while (threadPoolExecutor.getCompletedTaskCount() != threadPoolExecutor.getTaskCount()){
+               System.out.println("线程池中已完成任务个数：" + threadPoolExecutor.getCompletedTaskCount());
+               System.out.println("线程池线程仍在执行中！！！！");
+               Thread.sleep(1*1000);
+           };
+
         }
+
         System.out.println("任务结束");
+        System.in.read();
     }
 }
