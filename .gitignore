@@ -1,5 +1,4 @@
-commom/target
-mapReduce/target
+/target
 *.class
 *.jar
 *.war
