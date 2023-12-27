@@ -18,6 +18,4 @@
         <module>common</module>
         <module>mapReduce</module>
     </modules>
-
-
 </project>

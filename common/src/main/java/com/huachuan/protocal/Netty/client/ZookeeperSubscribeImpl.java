@@ -1,6 +1,7 @@
 package com.huachuan.protocal.Netty.client;
 
 
+import com.huachuan.protocal.Netty.server.ZookeeperRegisterImpl;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.TreeCache;
@@ -28,7 +29,7 @@ public class ZookeeperSubscribeImpl {
   public static void start() {
         Properties properties = new Properties();
       try {
-          properties.load(new FileReader("src/main/resources/zookeeper.properties"));
+          properties.load(new FileReader(ZookeeperSubscribeImpl.class.getResource("/zookeeper.properties").getPath()));
       } catch (IOException e) {
           e.printStackTrace();
       }

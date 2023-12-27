@@ -9,7 +9,7 @@ public interface WorkerInterface {
 
 
     //处理任务 通过type决定处理map还是reduce任务
-    int handleTask(String type);
+    String handleTask(String type, String path);
 
     //处理心跳请求
     String heartBeat();

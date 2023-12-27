@@ -1,12 +1,6 @@
 package com.huachuan.serverInterface;
 
 public interface MasterInterface {
-    //获取maptask任务的个数
-    int getMapTask();
-
-    //获取reduceTask的个数
-    int getReduceTask();
-
 
     //获取正在被处理的任务个数
     int getOnBusy();
@@ -18,9 +12,13 @@ public interface MasterInterface {
     int getWorkerServerCount();
 
     //任务分发(worker请求任务， master为其分发任务)
-    void taskDistribution(String type);
+    void taskDistribution(String type, String path);
 
     //监测worker状态，心跳检测
     void heartBeat() throws InterruptedException;
 
+    void start(String address) throws Exception;
+
+    //设置需要被处理的文件夹
+    void setDir(String dir);
 }

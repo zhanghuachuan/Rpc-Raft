@@ -1,0 +1,9 @@
+com/huachuan/serverInterface/WorkerInterface.class
+com/huachuan/serverInterface/impl/WorkerInterfaceImpl.class
+com/huachuan/master/Master.class
+com/huachuan/master/MasterTest.class
+com/huachuan/serverInterface/impl/MasterInterfaceImpl.class
+com/huachuan/serverInterface/impl/MasterInterfaceImpl$1.class
+com/huachuan/mapReduce/MapReduce.class
+com/huachuan/worker/Worker.class
+com/huachuan/serverInterface/MasterInterface.class

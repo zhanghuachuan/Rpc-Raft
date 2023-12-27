@@ -10,11 +10,11 @@ import java.net.InetSocketAddress;
 
 public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
 
-    private ChannelHandlerContext context;//上下文
+    private volatile ChannelHandlerContext context;//上下文
     private ReturnInfo result; //返回的结果
 
     @Override
-    public synchronized void channelActive(ChannelHandlerContext ctx) throws Exception {
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
         context = ctx; //因为我们在其它方法会使用到 ctx
     }
 
@@ -42,8 +42,13 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
 
 
     public synchronized ReturnInfo sendRequest(TransInfo info) throws Exception {
+        while (context == null){
+
+        }
         context.writeAndFlush(info);
+        System.out.println("等待结果中。。。");
         wait();
+        System.out.println("返回结果：" + result);
         return result;
     }
 }

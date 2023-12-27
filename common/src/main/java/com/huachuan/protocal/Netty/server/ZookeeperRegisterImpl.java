@@ -25,7 +25,7 @@ public class ZookeeperRegisterImpl {
        if (client != null) return;
         Properties properties = new Properties();
        try {
-           properties.load(new FileReader("src/main/resources/zookeeper.properties"));
+           properties.load(new FileReader(ZookeeperRegisterImpl.class.getResource("/zookeeper.properties").getPath()));
        } catch (IOException e) {
            e.printStackTrace();
        }

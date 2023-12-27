@@ -1,0 +1,12 @@
+guo: 5
+DDR: 5
+HELlop: 5
+world: 5
+shi: 5
+university: 5
+ziu: 5
+jiu: 5
+ya: 10
+pku: 10
+ni: 10
+hello: 10
