@@ -37,7 +37,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
         InetSocketAddress address = (InetSocketAddress)ctx.channel().remoteAddress();
         System.out.println(address.getPort()); //得到的是netty程序运行在电脑上的port
         System.out.println(address.getAddress());
-        ClientPool.remove(""+ address.getAddress().getHostAddress() +":" + address.getPort());
+        ClientPool.remove(address.getAddress().getHostAddress() +":" + address.getPort());
     }
 
 

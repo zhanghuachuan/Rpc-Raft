@@ -40,4 +40,8 @@ public class RpcClient {
         nettyClient.closeClient();
     }
 
+    public int reConnect() {
+       return nettyClient.reConnect();
+    }
+
 }

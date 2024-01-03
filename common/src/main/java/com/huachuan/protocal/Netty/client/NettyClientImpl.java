@@ -19,8 +19,13 @@ public class NettyClientImpl {
 
     private ClientHandler clientHandler = new ClientHandler();
     private EventLoopGroup group;
+    private Bootstrap bootstrap;
+    private String address;
+    private int port;
 
    public NettyClientImpl(String address, int port){
+       this.address = address;
+       this.port = port;
         initClient(address, port);
     }
 
@@ -31,7 +36,7 @@ public class NettyClientImpl {
 
             //创建客户端启动对象
             //注意客户端使用的不是 ServerBootstrap 而是 Bootstrap
-            Bootstrap bootstrap = new Bootstrap();
+           bootstrap = new Bootstrap();
             //设置相关参数
             bootstrap.group(group) //设置线程组
                     .channel(NioSocketChannel.class) // 设置客户端通道的实现类(反射)
@@ -65,5 +70,17 @@ public class NettyClientImpl {
     public ReturnInfo send(TransInfo info) throws Exception {
 
         return clientHandler.sendRequest(info);
+    }
+
+    public int reConnect() {
+       if (bootstrap == null) return 0;
+       int result = 0;
+       try {
+            bootstrap.connect(address, port).sync();
+            result = 1;
+        } catch (InterruptedException e) {
+           System.out.println("重连失败");
+        }
+       return result;
     }
 }
