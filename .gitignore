@@ -1,4 +1,6 @@
 **/target/*
+**/map/*
+**/reduce/*
 *.class
 *.jar
 *.war
