@@ -9,4 +9,7 @@ public class HeartBeatResult {
 
     //follower日志同步或心跳的结果
     private int success;
+
+    //返回下次需要匹配的index
+    private int nextMathIndex;
 }

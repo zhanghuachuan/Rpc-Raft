@@ -20,8 +20,11 @@ public class HeartBeatParameter {
 
     private int prevLogTerm;
 
-    //需要同步的多条日志，若没有日志需要同步，logs为空
-    private List<Log> logs;
+    //表明当前是否有需要进行同步的日志
+    private int hasLog;
+
+    //当前需要同步的日志
+    private Log log;
 
     //leader提交的最后一条日志的索引
     private int leaderCommitIndex;
