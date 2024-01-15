@@ -28,7 +28,9 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
     @Override
     public synchronized void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println(cause);
+        result = null;
         ctx.close();
+        notify();
     }
 
     @Override
@@ -46,9 +48,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
 
         }
         context.writeAndFlush(info);
-        System.out.println("等待结果中。。。");
         wait();
-        System.out.println("返回结果：" + result);
         return result;
     }
 }

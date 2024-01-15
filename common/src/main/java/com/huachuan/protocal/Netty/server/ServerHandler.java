@@ -17,7 +17,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<TransInfo> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, TransInfo transInfo) throws Exception {
-        List<Object> list = localRegister.get(transInfo.className, transInfo.methodName);
+       List<Object> list = localRegister.get(transInfo.className, transInfo.methodName);
         if(list == null) {
             System.out.println("调用失败：" + transInfo.className + ":" + transInfo.methodName);
             return;

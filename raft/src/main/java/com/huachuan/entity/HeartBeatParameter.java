@@ -2,13 +2,17 @@ package com.huachuan.entity;
 
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 心跳顺便同步日志
  */
 @Data
-public class HeartBeatParameter {
+public class HeartBeatParameter implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -8450071281700730532L;
     //领导人的任期
     private int term;
 

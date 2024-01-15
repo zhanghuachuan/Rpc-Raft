@@ -79,7 +79,7 @@ public class NettyClientImpl {
             bootstrap.connect(address, port).sync();
             result = 1;
         } catch (InterruptedException e) {
-           System.out.println("重连失败");
+           System.out.println("重连失败:" + address + port);
         }
        return result;
     }

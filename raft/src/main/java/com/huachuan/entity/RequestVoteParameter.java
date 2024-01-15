@@ -2,8 +2,13 @@ package com.huachuan.entity;
 
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Data
-public class RequestVoteParameter {
+public class RequestVoteParameter implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 7392878821362737391L;
     //候选人的任期号
     private int term;
 
