@@ -12,10 +12,12 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
 
     private volatile ChannelHandlerContext context;//上下文
     private ReturnInfo result; //返回的结果
+    private int status;
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         context = ctx; //因为我们在其它方法会使用到 ctx
+        status = 1;
     }
 
     @Override
@@ -30,16 +32,17 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
         System.out.println(cause);
         result = null;
         ctx.close();
+        status = 0;
         notify();
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    public synchronized void channelInactive(ChannelHandlerContext ctx) throws Exception {
         ctx.close();
         InetSocketAddress address = (InetSocketAddress)ctx.channel().remoteAddress();
-        System.out.println(address.getPort()); //得到的是netty程序运行在电脑上的port
-        System.out.println(address.getAddress());
         ClientPool.remove(address.getAddress().getHostAddress() +":" + address.getPort());
+        status = 0;
+        notify();
     }
 
 
@@ -48,7 +51,15 @@ public class ClientHandler extends SimpleChannelInboundHandler<ReturnInfo>{
 
         }
         context.writeAndFlush(info);
+        if (status == 0) return null;
         wait();
         return result;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+      this.status = status;
     }
 }

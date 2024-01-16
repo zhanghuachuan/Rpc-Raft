@@ -81,7 +81,7 @@ public class RaftNode {
 
     private RpcClient getClient(String url) {
         RpcClient client = clientMap.get(url);
-        if (client == null) {
+        if (client == null || client.getStatus() == 0) {
             try {
                 client = new RpcClient(url);
                 clientMap.put(url, client);
@@ -169,7 +169,7 @@ public class RaftNode {
             if (role != 3) return 0;
             if(url.equals(raftConfig.getAddress())) continue;
             RpcClient client = getClient(url);
-            if (client == null) continue;
+            if (client == null || client.getStatus() == 0) continue;
             RequestVoteParameter parameter = new RequestVoteParameter();
             parameter.setTerm(currentTerm);
             parameter.setCandidateId(id);
@@ -215,10 +215,14 @@ public class RaftNode {
             heartBeatParameter.setHasLog(0);
         }
         while(leaderId == id) {
+            int alive = raftConfig.getClusters().size();
             for (String url : clients) {
                 if(url.equals(raftConfig.getAddress())) continue;
                 RpcClient client = getClient(url);
-                if (client == null) continue;
+                if (client == null || client.getStatus() == 0) {
+                    --alive;
+                    continue;
+                }
                 HeartBeatParameter heartBeatParameter = heartBeatParameterMap.get(url);
                 heartBeatParameter.setLeaderId(leaderId);
                 heartBeatParameter.setTerm(currentTerm);
@@ -251,6 +255,7 @@ public class RaftNode {
                     heartBeatParameter.setHasLog(1);
                 }
             }
+            if (alive < (raftConfig.getClusters().size() / 2 + 1)) return;
             Thread.sleep(raftConfig.getHeartBeatTime() * 1000);
         }
 

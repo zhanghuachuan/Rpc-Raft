@@ -64,7 +64,8 @@ public class NettyClientImpl {
     }
 
     public void closeClient() {
-        group.shutdownGracefully();
+       setStatus(0);
+       group.shutdownGracefully();
     }
 
     public ReturnInfo send(TransInfo info) throws Exception {
@@ -72,15 +73,10 @@ public class NettyClientImpl {
         return clientHandler.sendRequest(info);
     }
 
-    public int reConnect() {
-       if (bootstrap == null) return 0;
-       int result = 0;
-       try {
-            bootstrap.connect(address, port).sync();
-            result = 1;
-        } catch (InterruptedException e) {
-           System.out.println("重连失败:" + address + port);
-        }
-       return result;
+    public int getStatus() {
+       return clientHandler.getStatus();
+    }
+    public void setStatus(int status) {
+       clientHandler.setStatus(status);
     }
 }
