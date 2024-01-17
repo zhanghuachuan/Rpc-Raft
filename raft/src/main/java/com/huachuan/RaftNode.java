@@ -48,13 +48,10 @@ public class RaftNode {
     private volatile int commitedIndex;
 
     //当前日志
-    private List<Log> logs;
+    private volatile List<Log> logs;
 
     //如果当前节点是leader，保存对其他节点的heartBeatParameter
     Map<String, HeartBeatParameter> heartBeatParameterMap;
-
-    private volatile Timer timer;
-
 
     public RaftNode(String configPath) throws IOException {
         currentTerm = 0;
@@ -87,6 +84,7 @@ public class RaftNode {
                 clientMap.put(url, client);
             } catch (Exception e) {
                 System.out.println(url + "还未就绪");
+                client = null;
             }
         }
         return client;
@@ -100,6 +98,7 @@ public class RaftNode {
         rpcServer = new RpcServer(raftConfig.getAddress());
         rpcServer.register(RaftNode.class, this, "voteFor");
         rpcServer.register(RaftNode.class, this, "heartBeatRecive");
+       rpcServer.register(RaftNode.class, this, "appendLog");
         rpcServer.start();
         //创建连接其他节点的客户端
         clients = raftConfig.getClusters();
@@ -126,7 +125,7 @@ public class RaftNode {
                  --restTime;
                 System.out.println("剩余restTime：" + restTime);
             }
-
+            leaderId = -1;
             role = 3;
             ++currentTerm;
             tickets = 1;
@@ -212,10 +211,12 @@ public class RaftNode {
             HeartBeatParameter heartBeatParameter = heartBeatParameterMap.get(url);
             heartBeatParameter.setPrevLogIndex(lastLogIndex);
             heartBeatParameter.setPrevLogTerm(lastLogTerm);
+            heartBeatParameter.setAckIndex(0);
             heartBeatParameter.setHasLog(0);
         }
         while(leaderId == id) {
             int alive = raftConfig.getClusters().size();
+            List<Integer> commitedIndexList = new ArrayList<>();
             for (String url : clients) {
                 if(url.equals(raftConfig.getAddress())) continue;
                 RpcClient client = getClient(url);
@@ -239,13 +240,20 @@ public class RaftNode {
                     role = 2;
                     currentTerm = heartBeatResult.getTerm();
                     tickets = 1;
+                    leaderId = -1;
                     return;
                 }
-                int index = heartBeatResult.getNextMathIndex();
-                if (index >= logs.size()) {
+                heartBeatParameter.setAckIndex(heartBeatResult.getAckIndex());
+                if (heartBeatParameter.getAckIndex() >= commitedIndex) {
+                    commitedIndexList.add(heartBeatParameter.getAckIndex());
+                }
+                int index = heartBeatResult.getNextMatchIndex();
+                if (index > lastLogIndex) {
                     heartBeatParameter.setHasLog(0);
+                    System.out.println("index > lastLogIndex");
                     continue;
                 }
+                System.out.println("index = " + index);
                 heartBeatParameter.setPrevLogIndex(index);
                 heartBeatParameter.setPrevLogTerm(logs.get(index).getLogTerm());
                 if (heartBeatResult.getSuccess() == 0) {
@@ -255,10 +263,16 @@ public class RaftNode {
                     heartBeatParameter.setHasLog(1);
                 }
             }
+            //检查是否有可以提交的内容
+            if (commitedIndexList.size() >= (raftConfig.getClusters().size() / 2)) {
+                Collections.sort(commitedIndexList, Collections.reverseOrder());
+                commitedIndex = commitedIndexList.get(raftConfig.getClusters().size() / 2 - 1);
+                System.out.println("最新提交索引：" + commitedIndex);
+            }
+            commitedIndexList.clear();
             if (alive < (raftConfig.getClusters().size() / 2 + 1)) return;
             Thread.sleep(raftConfig.getHeartBeatTime() * 1000);
         }
-
     }
 
     public HeartBeatResult heartBeatRecive(HeartBeatParameter parameter) {
@@ -271,22 +285,61 @@ public class RaftNode {
             leaderId = parameter.getLeaderId();
         }
         result.setTerm(currentTerm);
+        result.setAckIndex(Math.max(parameter.getAckIndex(), commitedIndex));
         result.setSuccess(0);
-        result.setNextMathIndex(parameter.getPrevLogIndex() - 1);
+        result.setNextMatchIndex(Math.min(parameter.getPrevLogIndex() - 1, lastLogIndex));
         if (leaderId != parameter.getLeaderId()) leaderId = parameter.getLeaderId();
-        if (parameter.getPrevLogIndex() >= logs.size()) return result;
-        if (logs.get(parameter.getPrevLogIndex()).getLogTerm() == parameter.getPrevLogTerm()) result.setSuccess(1);
-        else return result;
+        if (parameter.getHasLog() == 0) {
+            if (parameter.getPrevLogIndex() >= logs.size()) return result;
+            if (logs.get(parameter.getPrevLogIndex()).getLogTerm() == parameter.getPrevLogTerm()) {
+                result.setSuccess(1);
+                result.setNextMatchIndex(parameter.getPrevLogIndex()+ 1);
+                return result;
+            }
+            return result;
+        }
         Log tempLog = parameter.getLog();
         //更新日志
-        if (parameter.getHasLog() == 1) {
-            if (tempLog.getLogIndex() >= logs.size()) logs.add(tempLog);
-            else logs.set(tempLog.getLogIndex(), tempLog);
-            result.setNextMathIndex(tempLog.getLogIndex() + 1);
-        } else {
-            result.setNextMathIndex(parameter.getPrevLogIndex() + 1);
+        System.out.println("有日志需要同步：" + tempLog.getLogIndex() + "-" + tempLog.getLogTerm() + "-" + tempLog.getLogContent());
+        if (tempLog.getLogIndex() >= logs.size()) {
+            logs.add(tempLog);
+            System.out.println(id + "添加日志：" + tempLog.getLogContent());
         }
+        else logs.set(tempLog.getLogIndex(), tempLog);
+        lastLogIndex = tempLog.getLogIndex();
+        lastLogTerm = tempLog.getLogTerm();
+        result.setAckIndex(tempLog.getLogIndex());
+        commitedIndex = Math.min(parameter.getLeaderCommitIndex(), tempLog.getLogIndex());
+        System.out.println(id + "提交确认:" + commitedIndex);
+
+        result.setSuccess(1);
+        result.setNextMatchIndex(tempLog.getLogIndex() + 1);
         return result;
+    }
+
+    public synchronized int appendLog(String content) throws Exception {
+        //leader还未选举成功，拒绝日志写入请求
+        if (leaderId == -1) {
+            System.out.println("leader未选举成功，拒绝日志请求");
+            return 0;
+        }
+        //如果当前节点不是leader，转发到leader节点进行日志写入
+        if (leaderId != id) {
+            System.out.println("转发日志append请求");
+            //获取leader的url
+            String url = raftConfig.getClusters().get(leaderId - 1);
+            RpcClient client = getClient(url);
+            if (client == null || client.getStatus() == 0) return 0;
+            return (int) client.request(RaftNode.class, "RaftNode", "appendLog", content);
+        } else {
+            //如果当前节点是leader，需要写入到当前节点的日志中，并更新当前最新日志的索引号和任期号
+           Log tempLog = new Log(currentTerm, lastLogIndex + 1, content);
+           logs.add(tempLog);
+           ++lastLogIndex;
+           lastLogTerm = currentTerm;
+            System.out.println(id + "写入日志：" + tempLog.getLogIndex() + "-" + tempLog.getLogTerm() + "-" + tempLog.getLogContent());
+        }
+        return 1;
     }
 
 

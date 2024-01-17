@@ -16,5 +16,8 @@ public class HeartBeatResult implements Serializable {
     private int success;
 
     //返回下次需要匹配的index
-    private int nextMathIndex;
+    private int nextMatchIndex;
+
+    //follower已经与leader同步完成的索引号
+    private int ackIndex;
 }

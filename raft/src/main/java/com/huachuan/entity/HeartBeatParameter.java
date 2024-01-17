@@ -32,4 +32,7 @@ public class HeartBeatParameter implements Serializable {
 
     //leader提交的最后一条日志的索引
     private int leaderCommitIndex;
+
+    //与follower的日志同步情况
+    private int ackIndex;
 }
