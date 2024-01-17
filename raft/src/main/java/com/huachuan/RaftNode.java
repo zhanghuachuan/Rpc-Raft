@@ -298,16 +298,26 @@ public class RaftNode {
             }
             return result;
         }
+
         Log tempLog = parameter.getLog();
+        //判断当前日志是否是遗留的日志，比如节点断开后消除了日志，但在leader端保存有将要写入的日志
+        if (tempLog.getLogIndex() > lastLogIndex + 1) return result;
         //更新日志
         System.out.println("有日志需要同步：" + tempLog.getLogIndex() + "-" + tempLog.getLogTerm() + "-" + tempLog.getLogContent());
         if (tempLog.getLogIndex() >= logs.size()) {
             logs.add(tempLog);
+            lastLogIndex = tempLog.getLogIndex();
+            lastLogTerm = tempLog.getLogTerm();
             System.out.println(id + "添加日志：" + tempLog.getLogContent());
         }
-        else logs.set(tempLog.getLogIndex(), tempLog);
-        lastLogIndex = tempLog.getLogIndex();
-        lastLogTerm = tempLog.getLogTerm();
+        else {
+            logs.set(tempLog.getLogIndex(), tempLog);
+            if (tempLog.getLogIndex() == logs.size() - 1) {
+                lastLogIndex = tempLog.getLogIndex();
+                lastLogTerm = tempLog.getLogTerm();
+            }
+        }
+
         result.setAckIndex(tempLog.getLogIndex());
         commitedIndex = Math.min(parameter.getLeaderCommitIndex(), tempLog.getLogIndex());
         System.out.println(id + "提交确认:" + commitedIndex);
